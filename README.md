@@ -149,7 +149,8 @@ The database (smarthire_ai_db) comprises **10 interconnected entities**:
 5. candidate_skills: Many-to-Many junction mapping candidate profiles to verified skills.
 6. jobs: Requisition postings with salary bands, required experience, status (OPEN, CLOSED, DRAFT), and recruiter ownership.
 7. job_required_skills: Many-to-Many junction mapping job requisitions to required skills.
-8. esumes: File metadata, storage path, raw extracted text, and generated resume summary.
+8. 
+esumes: File metadata, storage path, raw extracted text, and generated resume summary.
 9. pplications: Candidate job applications with lifecycle stage, match percentage, and gap rationale.
 10. interviews: Scheduled rounds with interview type, meeting link, status, 1-10 rating, and feedback notes.
 11. 
@@ -200,7 +201,7 @@ To build and run the entire multi-container production stack in a single command
 
 `ash
 # 1. Clone the repository
-git clone https://github.com/karrarraza/smarthire-ai.git
+git clone https://github.com/karrar123soosoo/smarthire-ai.git
 cd smarthire-ai
 
 # 2. Copy the environment configuration
@@ -347,6 +348,6 @@ mvn test
 ## 👨‍💻 Author & Acknowledgments
 
 **Developed by Karrar Raza**  
-- Portfolio / GitHub: [https://github.com/karrarraza](https://github.com/karrarraza)
+- Portfolio / GitHub: [https://github.com/karrar123soosoo](https://github.com/karrar123soosoo)
 - Project: **SmartHire AI — Enterprise Recruitment Platform**
 - License: MIT Open Source
