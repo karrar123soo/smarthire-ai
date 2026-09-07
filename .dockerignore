@@ -1,0 +1,29 @@
+﻿# ==========================================
+# SmartHire AI - Root .dockerignore
+# ==========================================
+
+**/.git
+**/.gitignore
+**/.dockerignore
+**/.idea
+**/.vscode
+**/*.iml
+**/.DS_Store
+**/Thumbs.db
+
+# Dependencies & build outputs
+**/target
+**/node_modules
+**/dist
+**/dist-ssr
+
+# Log & environment files
+**/*.log
+**/logs
+**/.env
+**/.env*.local
+
+# System & Tooling cache
+**/.gemini
+**/.system_generated
+**/uploads

@@ -1,0 +1,11 @@
+﻿# Backend .dockerignore
+target/
+.mvn/
+.idea/
+*.iml
+.vscode/
+*.log
+logs/
+.git/
+.gitignore
+uploads/

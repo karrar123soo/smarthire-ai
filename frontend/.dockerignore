@@ -1,0 +1,11 @@
+﻿# Frontend .dockerignore
+node_modules/
+dist/
+dist-ssr/
+.idea/
+.vscode/
+*.log
+.git/
+.gitignore
+.env
+.env*.local
