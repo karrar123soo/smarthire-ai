@@ -1,4 +1,4 @@
-@echo off
+﻿@echo off
 title SmartHire AI - Server Launcher
 color 0A
 echo ===================================================================
@@ -21,9 +21,11 @@ start "SmartHire AI Frontend (Port 5173)" cmd /k "cd /d C:\Users\Hp\.gemini\anti
 echo.
 echo ===================================================================
 echo      SmartHire AI is now LIVE and running in dedicated windows!
-echo      Frontend: http://localhost:5173
-echo      Backend:  http://localhost:8080
-echo      Swagger:  http://localhost:8080/swagger-ui.html
+echo.
+echo      Desktop URL:    http://localhost:5173
+echo      Mobile URL:     http://172.20.10.3:5173  (Open on your phone)
+echo      Backend API:    http://localhost:8080
+echo      Swagger UI:     http://localhost:8080/swagger-ui.html
 echo ===================================================================
 echo.
 echo Press any key to open the web application in your default browser...

@@ -18,7 +18,9 @@ import {
   Calendar,
   BarChart3,
   FileText,
-  Bell
+  Bell,
+  Menu,
+  X
 } from 'lucide-react';
 
 export default function Navbar({
@@ -32,6 +34,7 @@ export default function Navbar({
 }) {
   const { user, isAuthenticated, role, logout } = useAuth();
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
     <header className="sticky top-0 z-40 backdrop-blur-md bg-slate-950/85 border-b border-slate-800/80">
@@ -192,7 +195,7 @@ export default function Navbar({
 
             {/* Swagger doc button */}
             <a
-              href="http://localhost:8080/swagger-ui.html"
+              href="/swagger-ui.html"
               target="_blank"
               rel="noreferrer"
               className="hidden sm:inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-850 hover:bg-slate-800 text-slate-200 border border-slate-700 transition shadow-sm"
@@ -321,22 +324,154 @@ export default function Navbar({
               <div className="flex items-center space-x-2">
                 <button
                   onClick={() => onOpenAuth('login')}
-                  className="px-3.5 py-1.5 rounded-lg text-xs font-medium text-slate-300 hover:text-white hover:bg-slate-850 transition"
+                  className="px-3 py-1.5 rounded-lg text-xs font-medium text-slate-300 hover:text-white hover:bg-slate-850 transition"
                 >
                   Sign In
                 </button>
                 <button
                   onClick={() => onOpenAuth('register')}
-                  className="px-4 py-1.5 rounded-lg text-xs font-semibold bg-gradient-to-r from-brand-600 to-indigo-600 hover:from-brand-500 hover:to-indigo-500 text-white shadow-md shadow-brand-500/20 transition"
+                  className="px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-gradient-to-r from-brand-600 to-indigo-600 hover:from-brand-500 hover:to-indigo-500 text-white shadow-md shadow-brand-500/20 transition"
                 >
                   Get Started
                 </button>
               </div>
             )}
 
+            {/* Mobile Hamburger Toggle */}
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="p-2 rounded-xl md:hidden text-slate-400 hover:text-white hover:bg-slate-850 border border-slate-750 transition"
+              aria-label="Toggle Navigation Menu"
+            >
+              {mobileMenuOpen ? <X className="w-5 h-5 text-white" /> : <Menu className="w-5 h-5" />}
+            </button>
+
           </div>
 
         </div>
+
+        {/* Mobile Slide-Down Navigation Menu */}
+        {mobileMenuOpen && (
+          <div className="md:hidden py-4 px-2 border-t border-slate-800/80 space-y-1.5 animate-in fade-in slide-in-from-top-2 duration-150">
+            <button
+              onClick={() => { onViewChange('landing'); setMobileMenuOpen(false); }}
+              className={`w-full px-3 py-2.5 rounded-xl text-left text-xs font-semibold flex items-center space-x-2 transition ${
+                currentView === 'landing' ? 'bg-brand-500/20 text-brand-300 border border-brand-500/30' : 'text-slate-300 hover:bg-slate-850'
+              }`}
+            >
+              <Bot className="w-4 h-4 text-brand-400" />
+              <span>Overview</span>
+            </button>
+
+            <button
+              onClick={() => { onViewChange('jobs'); setMobileMenuOpen(false); }}
+              className={`w-full px-3 py-2.5 rounded-xl text-left text-xs font-semibold flex items-center space-x-2 transition ${
+                currentView === 'jobs' ? 'bg-brand-500/20 text-brand-300 border border-brand-500/30' : 'text-slate-300 hover:bg-slate-850'
+              }`}
+            >
+              <Compass className="w-4 h-4 text-brand-400" />
+              <span>Explore Jobs</span>
+            </button>
+
+            {isAuthenticated && role === 'ROLE_CANDIDATE' && (
+              <>
+                <button
+                  onClick={() => { onViewChange('my-applications'); setMobileMenuOpen(false); }}
+                  className={`w-full px-3 py-2.5 rounded-xl text-left text-xs font-semibold flex items-center space-x-2 transition ${
+                    currentView === 'my-applications' ? 'bg-brand-500/20 text-brand-300 border border-brand-500/30' : 'text-slate-300 hover:bg-slate-850'
+                  }`}
+                >
+                  <Send className="w-4 h-4 text-brand-400" />
+                  <span>My Applications</span>
+                </button>
+
+                <button
+                  onClick={() => { onViewChange('interviews'); setMobileMenuOpen(false); }}
+                  className={`w-full px-3 py-2.5 rounded-xl text-left text-xs font-semibold flex items-center space-x-2 transition ${
+                    currentView === 'interviews' ? 'bg-brand-500/20 text-brand-300 border border-brand-500/30' : 'text-slate-300 hover:bg-slate-850'
+                  }`}
+                >
+                  <Calendar className="w-4 h-4 text-brand-400" />
+                  <span>My Interviews</span>
+                </button>
+
+                <button
+                  onClick={() => { onViewChange('resume-parser'); setMobileMenuOpen(false); }}
+                  className={`w-full px-3 py-2.5 rounded-xl text-left text-xs font-semibold flex items-center space-x-2 transition ${
+                    currentView === 'resume-parser' ? 'bg-purple-500/20 text-purple-300 border border-purple-500/30' : 'text-slate-300 hover:bg-slate-850'
+                  }`}
+                >
+                  <FileText className="w-4 h-4 text-purple-400" />
+                  <span>AI Resume Parser</span>
+                </button>
+              </>
+            )}
+
+            {isAuthenticated && role === 'ROLE_HR' && (
+              <>
+                <button
+                  onClick={() => { onViewChange('hr-pipeline'); setMobileMenuOpen(false); }}
+                  className={`w-full px-3 py-2.5 rounded-xl text-left text-xs font-semibold flex items-center space-x-2 transition ${
+                    currentView === 'hr-pipeline' ? 'bg-indigo-500/20 text-indigo-300 border border-indigo-500/30' : 'text-slate-300 hover:bg-slate-850'
+                  }`}
+                >
+                  <Users className="w-4 h-4 text-indigo-400" />
+                  <span>Recruitment Pipeline</span>
+                </button>
+
+                <button
+                  onClick={() => { onViewChange('hr-jobs'); setMobileMenuOpen(false); }}
+                  className={`w-full px-3 py-2.5 rounded-xl text-left text-xs font-semibold flex items-center space-x-2 transition ${
+                    currentView === 'hr-jobs' ? 'bg-indigo-500/20 text-indigo-300 border border-indigo-500/30' : 'text-slate-300 hover:bg-slate-850'
+                  }`}
+                >
+                  <Briefcase className="w-4 h-4 text-indigo-400" />
+                  <span>Manage Requisitions</span>
+                </button>
+
+                <button
+                  onClick={() => { onViewChange('interviews'); setMobileMenuOpen(false); }}
+                  className={`w-full px-3 py-2.5 rounded-xl text-left text-xs font-semibold flex items-center space-x-2 transition ${
+                    currentView === 'interviews' ? 'bg-indigo-500/20 text-indigo-300 border border-indigo-500/30' : 'text-slate-300 hover:bg-slate-850'
+                  }`}
+                >
+                  <Calendar className="w-4 h-4 text-indigo-400" />
+                  <span>Interview Schedule</span>
+                </button>
+
+                <button
+                  onClick={() => { onViewChange('analytics'); setMobileMenuOpen(false); }}
+                  className={`w-full px-3 py-2.5 rounded-xl text-left text-xs font-semibold flex items-center space-x-2 transition ${
+                    currentView === 'analytics' ? 'bg-indigo-500/20 text-indigo-300 border border-indigo-500/30' : 'text-slate-300 hover:bg-slate-850'
+                  }`}
+                >
+                  <BarChart3 className="w-4 h-4 text-indigo-400" />
+                  <span>Executive Analytics</span>
+                </button>
+              </>
+            )}
+
+            {isAuthenticated && (
+              <div className="pt-2 border-t border-slate-800/80 space-y-1">
+                <button
+                  onClick={() => { onOpenProfile(); setMobileMenuOpen(false); }}
+                  className="w-full px-3 py-2.5 rounded-xl text-left text-xs font-semibold text-slate-300 hover:bg-slate-850 flex items-center space-x-2"
+                >
+                  <Settings className="w-4 h-4 text-brand-400" />
+                  <span>Profile & Skills Settings</span>
+                </button>
+
+                <button
+                  onClick={() => { logout(); setMobileMenuOpen(false); }}
+                  className="w-full px-3 py-2.5 rounded-xl text-left text-xs font-semibold text-rose-400 hover:bg-rose-500/10 flex items-center space-x-2"
+                >
+                  <LogOut className="w-4 h-4" />
+                  <span>Sign Out ({user?.fullName})</span>
+                </button>
+              </div>
+            )}
+          </div>
+        )}
       </div>
     </header>
   );

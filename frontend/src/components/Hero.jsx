@@ -20,28 +20,28 @@ export default function Hero({ onOpenAuth }) {
         </div>
 
         {/* Main Headline */}
-        <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight text-white max-w-4xl mx-auto leading-tight sm:leading-tight">
+        <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white max-w-4xl mx-auto leading-tight sm:leading-tight">
           AI-Powered Recruitment & Candidate Matching Engine
         </h1>
 
         {/* Subtitle */}
-        <p className="mt-6 text-lg sm:text-xl text-slate-300 max-w-2xl mx-auto font-normal leading-relaxed">
+        <p className="mt-4 sm:mt-6 text-base sm:text-xl text-slate-300 max-w-2xl mx-auto font-normal leading-relaxed">
           SmartHire AI streamlines hiring workflows with automated resume skill extraction, intelligent candidate-to-job matching, HR interview scheduling, and enterprise analytics.
         </p>
 
         {/* CTA Button Group */}
-        <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
+        <div className="mt-8 sm:mt-10 flex flex-col sm:flex-row flex-wrap items-center justify-center gap-3 sm:gap-4 w-full sm:w-auto max-w-md sm:max-w-none mx-auto">
           {isAuthenticated && user ? (
-            <div className="inline-flex items-center space-x-3 px-6 py-3 rounded-xl bg-slate-900 border border-brand-500/40 text-slate-200">
-              <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
-              <span className="text-sm font-medium">Logged in as <strong className="text-white">{user.fullName}</strong> ({role === 'ROLE_HR' ? 'HR Recruiter' : 'Candidate'})</span>
+            <div className="inline-flex items-center space-x-3 px-5 sm:px-6 py-3 rounded-xl bg-slate-900 border border-brand-500/40 text-slate-200 w-full sm:w-auto justify-center text-center">
+              <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse flex-shrink-0"></span>
+              <span className="text-xs sm:text-sm font-medium">Logged in as <strong className="text-white">{user.fullName}</strong> ({role === 'ROLE_HR' ? 'HR Recruiter' : 'Candidate'})</span>
             </div>
           ) : (
             <>
               <button
                 type="button"
                 onClick={() => onOpenAuth && onOpenAuth('register', 'ROLE_HR')}
-                className="inline-flex items-center space-x-2 px-6 py-3 rounded-xl bg-gradient-to-r from-brand-600 to-indigo-600 hover:from-brand-500 hover:to-indigo-500 text-white font-medium shadow-lg shadow-brand-500/25 transition transform active:scale-95 text-sm"
+                className="w-full sm:w-auto inline-flex items-center justify-center space-x-2 px-6 py-3 rounded-xl bg-gradient-to-r from-brand-600 to-indigo-600 hover:from-brand-500 hover:to-indigo-500 text-white font-medium shadow-lg shadow-brand-500/25 transition transform active:scale-95 text-xs sm:text-sm"
               >
                 <Briefcase className="w-4 h-4" />
                 <span>Hire Talent as HR</span>
@@ -51,7 +51,7 @@ export default function Hero({ onOpenAuth }) {
               <button
                 type="button"
                 onClick={() => onOpenAuth && onOpenAuth('register', 'ROLE_CANDIDATE')}
-                className="inline-flex items-center space-x-2 px-6 py-3 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-medium shadow-lg shadow-purple-500/25 transition transform active:scale-95 text-sm"
+                className="w-full sm:w-auto inline-flex items-center justify-center space-x-2 px-6 py-3 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-medium shadow-lg shadow-purple-500/25 transition transform active:scale-95 text-xs sm:text-sm"
               >
                 <UserCheck className="w-4 h-4" />
                 <span>Apply as Candidate</span>
@@ -61,7 +61,7 @@ export default function Hero({ onOpenAuth }) {
 
           <a
             href="#status"
-            className="inline-flex items-center space-x-2 px-5 py-3 rounded-xl bg-slate-900 hover:bg-slate-850 text-slate-200 border border-slate-700 font-medium transition text-sm"
+            className="w-full sm:w-auto inline-flex items-center justify-center space-x-2 px-5 py-3 rounded-xl bg-slate-900 hover:bg-slate-850 text-slate-200 border border-slate-700 font-medium transition text-xs sm:text-sm"
           >
             <Zap className="w-4 h-4 text-amber-400" />
             <span>View Live Diagnostics</span>
@@ -69,7 +69,7 @@ export default function Hero({ onOpenAuth }) {
         </div>
 
         {/* Key Features Badges */}
-        <div className="mt-14 grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto text-left">
+        <div className="mt-10 sm:mt-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 max-w-4xl mx-auto text-left">
           <div className="p-4 rounded-xl glass-panel flex items-center space-x-3">
             <div className="p-2 rounded-lg bg-indigo-500/10 text-indigo-400">
               <Cpu className="w-5 h-5" />

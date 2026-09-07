@@ -23,10 +23,10 @@ export default function RoleSelector({ onOpenAuth }) {
           </p>
 
           {/* Toggle Pills */}
-          <div className="mt-8 inline-flex p-1.5 rounded-xl bg-slate-850 border border-slate-750">
+          <div className="mt-6 sm:mt-8 flex flex-col sm:inline-flex sm:flex-row p-1.5 rounded-2xl sm:rounded-xl bg-slate-850 border border-slate-750 gap-1.5 sm:gap-0 max-w-md mx-auto">
             <button
               onClick={() => setActiveTab('hr')}
-              className={`flex items-center space-x-2 px-6 py-2.5 rounded-lg text-sm font-medium transition ${
+              className={`flex items-center justify-center space-x-2 px-5 sm:px-6 py-2.5 rounded-xl sm:rounded-lg text-xs sm:text-sm font-medium transition ${
                 activeTab === 'hr'
                   ? 'bg-brand-600 text-white shadow-md'
                   : 'text-slate-400 hover:text-white'
@@ -37,7 +37,7 @@ export default function RoleSelector({ onOpenAuth }) {
             </button>
             <button
               onClick={() => setActiveTab('candidate')}
-              className={`flex items-center space-x-2 px-6 py-2.5 rounded-lg text-sm font-medium transition ${
+              className={`flex items-center justify-center space-x-2 px-5 sm:px-6 py-2.5 rounded-xl sm:rounded-lg text-xs sm:text-sm font-medium transition ${
                 activeTab === 'candidate'
                   ? 'bg-brand-600 text-white shadow-md'
                   : 'text-slate-400 hover:text-white'
@@ -52,17 +52,17 @@ export default function RoleSelector({ onOpenAuth }) {
         {/* Dynamic Card Display */}
         <div className="max-w-5xl mx-auto">
           {activeTab === 'hr' ? (
-            <div className="p-8 sm:p-10 rounded-3xl glass-card border border-indigo-500/30 relative overflow-hidden">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+            <div className="p-5 sm:p-8 md:p-10 rounded-3xl glass-card border border-indigo-500/30 relative overflow-hidden">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 items-center">
                 <div>
                   <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-md bg-indigo-500/10 text-indigo-300 text-xs font-semibold uppercase mb-4 border border-indigo-500/20">
                     <Briefcase className="w-3.5 h-3.5" />
                     <span>Recruiter Operating System</span>
                   </div>
-                  <h3 className="text-2xl font-bold text-white mb-4">
+                  <h3 className="text-xl sm:text-2xl font-bold text-white mb-3 sm:mb-4">
                     Complete Control Over Hiring Pipelines
                   </h3>
-                  <p className="text-sm text-slate-300 mb-6 leading-relaxed">
+                  <p className="text-xs sm:text-sm text-slate-300 mb-6 leading-relaxed">
                     Post openings with required skill criteria, filter applications dynamically, inspect AI match scores, schedule interview rounds, and monitor hiring KPIs in real-time.
                   </p>
                   
@@ -80,11 +80,11 @@ export default function RoleSelector({ onOpenAuth }) {
                     ))}
                   </div>
 
-                  <div className="flex items-center space-x-3">
+                  <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 sm:space-x-3">
                     <button
                       type="button"
                       onClick={() => onOpenAuth && onOpenAuth('register', 'ROLE_HR')}
-                      className="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold flex items-center space-x-2 transition"
+                      className="px-4 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold flex items-center justify-center space-x-2 transition"
                     >
                       <span>Create Recruiter Account</span>
                       <ArrowRight className="w-3.5 h-3.5" />
@@ -92,14 +92,14 @@ export default function RoleSelector({ onOpenAuth }) {
                     <button
                       type="button"
                       onClick={() => quickDemoLogin && quickDemoLogin('hr')}
-                      className="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-750 text-slate-200 border border-slate-700 text-xs font-semibold transition"
+                      className="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-750 text-slate-200 border border-slate-700 text-xs font-semibold flex items-center justify-center transition"
                     >
                       <span>1-Click Demo HR</span>
                     </button>
                   </div>
                 </div>
 
-                <div className="p-6 rounded-2xl bg-slate-900/90 border border-slate-800 space-y-4">
+                <div className="p-5 sm:p-6 rounded-2xl bg-slate-900/90 border border-slate-800 space-y-4">
                   <div className="flex items-center justify-between pb-3 border-b border-slate-800">
                     <span className="text-xs font-semibold text-slate-300">Recruiter Dashboard Snapshot</span>
                     <span className="text-[11px] font-mono text-emerald-400">● LIVE DEMO PREVIEW</span>
@@ -126,8 +126,8 @@ export default function RoleSelector({ onOpenAuth }) {
 
                   <div className="p-3 rounded-lg bg-slate-850 border border-slate-800 text-xs">
                     <div className="flex justify-between items-center mb-1">
-                      <span className="text-slate-300 font-medium">Top Match: Senior Java Engineer</span>
-                      <span className="text-xs font-bold text-emerald-400">94% Match</span>
+                      <span className="text-slate-300 font-medium truncate pr-2">Senior Java Engineer</span>
+                      <span className="text-xs font-bold text-emerald-400 flex-shrink-0">94% Match</span>
                     </div>
                     <div className="w-full bg-slate-800 rounded-full h-1.5 overflow-hidden">
                       <div className="bg-emerald-400 h-1.5 rounded-full" style={{ width: '94%' }}></div>
@@ -137,17 +137,17 @@ export default function RoleSelector({ onOpenAuth }) {
               </div>
             </div>
           ) : (
-            <div className="p-8 sm:p-10 rounded-3xl glass-card border border-purple-500/30 relative overflow-hidden">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+            <div className="p-5 sm:p-8 md:p-10 rounded-3xl glass-card border border-purple-500/30 relative overflow-hidden">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 items-center">
                 <div>
                   <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-md bg-purple-500/10 text-purple-300 text-xs font-semibold uppercase mb-4 border border-purple-500/20">
                     <UserCheck className="w-3.5 h-3.5" />
                     <span>Candidate Career Hub</span>
                   </div>
-                  <h3 className="text-2xl font-bold text-white mb-4">
+                  <h3 className="text-xl sm:text-2xl font-bold text-white mb-3 sm:mb-4">
                     Fast-Track Your Job Search With AI
                   </h3>
-                  <p className="text-sm text-slate-300 mb-6 leading-relaxed">
+                  <p className="text-xs sm:text-sm text-slate-300 mb-6 leading-relaxed">
                     Upload your resume, have your skills automatically recognized and cataloged, discover tailored jobs, apply with one click, and track interview invitations.
                   </p>
                   
@@ -165,11 +165,11 @@ export default function RoleSelector({ onOpenAuth }) {
                     ))}
                   </div>
 
-                  <div className="flex items-center space-x-3">
+                  <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 sm:space-x-3">
                     <button
                       type="button"
                       onClick={() => onOpenAuth && onOpenAuth('register', 'ROLE_CANDIDATE')}
-                      className="px-4 py-2 rounded-xl bg-purple-600 hover:bg-purple-500 text-white text-xs font-semibold flex items-center space-x-2 transition"
+                      className="px-4 py-2.5 rounded-xl bg-purple-600 hover:bg-purple-500 text-white text-xs font-semibold flex items-center justify-center space-x-2 transition"
                     >
                       <span>Create Candidate Account</span>
                       <ArrowRight className="w-3.5 h-3.5" />
@@ -177,7 +177,7 @@ export default function RoleSelector({ onOpenAuth }) {
                     <button
                       type="button"
                       onClick={() => quickDemoLogin && quickDemoLogin('candidate')}
-                      className="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-750 text-slate-200 border border-slate-700 text-xs font-semibold transition"
+                      className="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-750 text-slate-200 border border-slate-700 text-xs font-semibold flex items-center justify-center transition"
                     >
                       <span>1-Click Demo Candidate</span>
                     </button>

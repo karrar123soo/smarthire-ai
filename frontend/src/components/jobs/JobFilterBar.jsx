@@ -34,7 +34,7 @@ export default function JobFilterBar({ filters, onFilterChange, onReset }) {
       </div>
 
       {/* Filter Controls Row */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-1">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 pt-1">
         {/* Job Type Dropdown */}
         <div>
           <label className="block text-[10px] uppercase font-semibold text-slate-400 mb-1 tracking-wider">Job Type</label>
