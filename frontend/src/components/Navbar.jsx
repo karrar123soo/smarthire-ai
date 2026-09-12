@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { notificationService } from '../services/notificationService';
+import { getBackendOrigin } from '../services/api';
 import {
   Sparkles,
   Bot,
@@ -195,7 +196,7 @@ export default function Navbar({
 
             {/* Swagger doc button */}
             <a
-              href="/swagger-ui.html"
+              href={`${getBackendOrigin()}/swagger-ui.html`}
               target="_blank"
               rel="noreferrer"
               className="hidden sm:inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-850 hover:bg-slate-800 text-slate-200 border border-slate-700 transition shadow-sm"

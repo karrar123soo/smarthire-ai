@@ -1,7 +1,14 @@
 import React from 'react';
 import { Bot, Shield, Code2, Database, Sparkles, Heart, Terminal } from 'lucide-react';
+import { getBackendOrigin, API_BASE_URL } from '../services/api';
 
 export default function Footer() {
+  const backendOrigin = getBackendOrigin();
+  const swaggerUrl = `${backendOrigin}/swagger-ui.html`;
+  const apiDocsUrl = `${backendOrigin}/v3/api-docs`;
+  const healthUrl = `${API_BASE_URL}/health`;
+  const jobsUrl = `${API_BASE_URL}/jobs`;
+
   return (
     <footer id="architecture" className="bg-slate-950 border-t border-slate-800/80 pt-16 pb-12 text-slate-400">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -41,25 +48,25 @@ export default function Footer() {
             </h4>
             <ul className="space-y-2 text-xs text-slate-400">
               <li>
-                <a href="http://localhost:8080/swagger-ui.html" target="_blank" rel="noreferrer" className="hover:text-brand-400 transition flex items-center space-x-1.5">
+                <a href={swaggerUrl} target="_blank" rel="noreferrer" className="hover:text-brand-400 transition flex items-center space-x-1.5">
                   <Shield className="w-3.5 h-3.5 text-brand-400" />
                   <span>Interactive Swagger UI</span>
                 </a>
               </li>
               <li>
-                <a href="http://localhost:8080/v3/api-docs" target="_blank" rel="noreferrer" className="hover:text-brand-400 transition flex items-center space-x-1.5">
+                <a href={apiDocsUrl} target="_blank" rel="noreferrer" className="hover:text-brand-400 transition flex items-center space-x-1.5">
                   <Code2 className="w-3.5 h-3.5 text-indigo-400" />
                   <span>OpenAPI Schema JSON</span>
                 </a>
               </li>
               <li>
-                <a href="http://localhost:8080/api/v1/health" target="_blank" rel="noreferrer" className="hover:text-brand-400 transition flex items-center space-x-1.5">
+                <a href={healthUrl} target="_blank" rel="noreferrer" className="hover:text-brand-400 transition flex items-center space-x-1.5">
                   <Terminal className="w-3.5 h-3.5 text-emerald-400" />
                   <span>Health Diagnostics</span>
                 </a>
               </li>
               <li>
-                <a href="http://localhost:8080/api/v1/jobs" target="_blank" rel="noreferrer" className="hover:text-brand-400 transition flex items-center space-x-1.5">
+                <a href={jobsUrl} target="_blank" rel="noreferrer" className="hover:text-brand-400 transition flex items-center space-x-1.5">
                   <Database className="w-3.5 h-3.5 text-amber-400" />
                   <span>Public Job Requisitions</span>
                 </a>

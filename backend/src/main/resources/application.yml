@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: ${PORT:${SERVER_PORT:8080}}
   servlet:
     context-path: /
 
@@ -8,13 +8,13 @@ spring:
     name: smarthire-backend
 
   datasource:
-    url: jdbc:mysql://localhost:3306/smarthire_ai_db?createDatabaseIfNotExist=true&useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
-    username: root
-    password: root
+    url: ${SPRING_DATASOURCE_URL:jdbc:mysql://localhost:3306/smarthire_ai_db?createDatabaseIfNotExist=true&useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true}
+    username: ${SPRING_DATASOURCE_USERNAME:root}
+    password: ${SPRING_DATASOURCE_PASSWORD:root}
     driver-class-name: com.mysql.cj.jdbc.Driver
     hikari:
       maximum-pool-size: 10
-      minimum-idle: 5
+      minimum-idle: 2
       idle-timeout: 300000
       connection-timeout: 20000
       max-lifetime: 1200000
@@ -22,10 +22,10 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
-    show-sql: true
+    show-sql: false
     properties:
       hibernate:
-        format_sql: true
+        format_sql: false
         dialect: org.hibernate.dialect.MySQLDialect
     open-in-view: false
 
@@ -37,7 +37,7 @@ spring:
   jackson:
     serialization:
       write-dates-as-timestamps: false
-      indent-output: true
+      indent-output: false
 
 # OpenAPI / Swagger Configuration
 springdoc:
@@ -52,8 +52,8 @@ springdoc:
 # Security & JWT Configuration
 app:
   jwt:
-    secret: 404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970
-    expiration-ms: 86400000 # 24 hours
+    secret: ${JWT_SECRET:404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970}
+    expiration-ms: ${JWT_EXPIRATION_MS:86400000} # 24 hours
   cors:
     allowed-origins: "${CORS_ALLOWED_ORIGINS:*}"
 

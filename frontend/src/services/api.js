@@ -1,6 +1,23 @@
 import axios from 'axios';
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || '/api/v1';
+export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || '/api/v1';
+
+/**
+ * Returns the root origin of the backend server.
+ * If API_BASE_URL is a full URL (e.g. https://smarthire-backend.onrender.com/api/v1), returns 'https://smarthire-backend.onrender.com'.
+ * If API_BASE_URL is relative (e.g. '/api/v1'), returns '' (current host).
+ */
+export const getBackendOrigin = () => {
+  if (API_BASE_URL.startsWith('http://') || API_BASE_URL.startsWith('https://')) {
+    try {
+      const url = new URL(API_BASE_URL);
+      return url.origin;
+    } catch (e) {
+      return '';
+    }
+  }
+  return '';
+};
 
 export const apiClient = axios.create({
   baseURL: API_BASE_URL,
