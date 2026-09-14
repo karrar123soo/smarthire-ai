@@ -26,15 +26,13 @@ RUN chown -R smarthire:smarthire /app
 USER smarthire
 
 # Default environment variables
-ENV SERVER_PORT=8080
+ENV PORT=10000
+ENV SERVER_PORT=10000
 ENV SPRING_PROFILES_ACTIVE=prod
 ENV SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/smarthire_ai_db?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
 ENV SPRING_DATASOURCE_USERNAME=root
 ENV SPRING_DATASOURCE_PASSWORD=root
 
-EXPOSE 8080
-
-HEALTHCHECK --interval=30s --timeout=5s --start-period=40s --retries=3 \
-  CMD curl -f http://localhost:8080/actuator/health || exit 1
+EXPOSE 10000 8080
 
 ENTRYPOINT ["java", "-XX:+UseContainerSupport", "-XX:MaxRAMPercentage=75.0", "-jar", "app.jar"]
