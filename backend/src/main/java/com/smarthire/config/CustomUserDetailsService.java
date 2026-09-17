@@ -2,7 +2,7 @@ package com.smarthire.config;
 
 import com.smarthire.model.entity.User;
 import com.smarthire.repository.UserRepository;
-import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -13,10 +13,13 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Collections;
 
 @Service
-@RequiredArgsConstructor
 public class CustomUserDetailsService implements UserDetailsService {
 
     private final UserRepository userRepository;
+
+    public CustomUserDetailsService(@Lazy UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     @Override
     @Transactional(readOnly = true)

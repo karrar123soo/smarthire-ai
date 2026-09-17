@@ -17,17 +17,22 @@ spring:
       maximum-pool-size: 10
       minimum-idle: 2
       idle-timeout: 300000
-      connection-timeout: 20000
-      max-lifetime: 1200000
+      connection-timeout: 30000
+      max-lifetime: 600000
+      validation-timeout: 5000
+      keepalive-time: 60000
 
   jpa:
     hibernate:
       ddl-auto: update
     show-sql: false
+    defer-datasource-initialization: true
     properties:
       hibernate:
         format_sql: false
         dialect: org.hibernate.dialect.MySQLDialect
+        jdbc:
+          time_zone: UTC
     open-in-view: false
 
   servlet:
