@@ -2,12 +2,11 @@
 FROM maven:3.9.6-eclipse-temurin-17-focal AS build
 WORKDIR /app
 
-# Copy POM and download dependencies for caching
-COPY backend/pom.xml .
-RUN mvn dependency:go-offline -B
-
-# Copy source code and package application jar
+# Copy POM and source code
+COPY backend/pom.xml ./pom.xml
 COPY backend/src ./src
+
+# Build production jar
 RUN mvn clean package -DskipTests -B
 
 # Stage 2: Minimal JRE Runtime
