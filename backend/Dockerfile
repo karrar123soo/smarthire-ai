@@ -28,9 +28,6 @@ USER smarthire
 ENV PORT=10000
 ENV SERVER_PORT=10000
 ENV SPRING_PROFILES_ACTIVE=prod
-ENV SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/smarthire_ai_db?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
-ENV SPRING_DATASOURCE_USERNAME=root
-ENV SPRING_DATASOURCE_PASSWORD=root
 
 EXPOSE 10000 8080
 
