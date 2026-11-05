@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
+import java.nio.charset.StandardCharsets;
 import java.util.Date;
 
 @Component
@@ -27,7 +28,30 @@ public class JwtTokenProvider {
     private long jwtExpirationMs;
 
     private SecretKey getSigningKey() {
-        byte[] keyBytes = Decoders.BASE64.decode(jwtSecret);
+        byte[] keyBytes;
+        if (jwtSecret.contains("-") || jwtSecret.contains("_")) {
+            try {
+                keyBytes = Decoders.BASE64URL.decode(jwtSecret);
+            } catch (IllegalArgumentException e) {
+                keyBytes = jwtSecret.getBytes(StandardCharsets.UTF_8);
+            }
+        } else {
+            try {
+                keyBytes = Decoders.BASE64.decode(jwtSecret);
+            } catch (IllegalArgumentException e) {
+                try {
+                    keyBytes = Decoders.BASE64URL.decode(jwtSecret);
+                } catch (IllegalArgumentException ex) {
+                    keyBytes = jwtSecret.getBytes(StandardCharsets.UTF_8);
+                }
+            }
+        }
+
+        byte[] rawBytes = jwtSecret.getBytes(StandardCharsets.UTF_8);
+        if (keyBytes.length < 32 && rawBytes.length >= 32) {
+            keyBytes = rawBytes;
+        }
+
         return Keys.hmacShaKeyFor(keyBytes);
     }
 
