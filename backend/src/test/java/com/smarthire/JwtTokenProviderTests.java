@@ -81,4 +81,25 @@ class JwtTokenProviderTests {
         assertTrue(rawSecretProvider.validateToken(token));
         assertEquals("hr@smarthire.ai", rawSecretProvider.getEmailFromToken(token));
     }
+
+    @Test
+    void testSecretWithExclamationAndHyphen() {
+        JwtTokenProvider provider = new JwtTokenProvider();
+        // Secret with both hyphens and exclamation mark (reproducing the exact production case)
+        ReflectionTestUtils.setField(provider, "jwtSecret", "SmartHire-Enterprise-JWT-Secret-Key-2026-Security!");
+        ReflectionTestUtils.setField(provider, "jwtExpirationMs", 3600000L);
+
+        User user = User.builder()
+                .id(103L)
+                .email("candidate@smarthire.ai")
+                .fullName("Demo Candidate")
+                .role(Role.ROLE_CANDIDATE)
+                .active(true)
+                .build();
+
+        String token = provider.generateToken(user);
+        assertNotNull(token);
+        assertTrue(provider.validateToken(token));
+        assertEquals("candidate@smarthire.ai", provider.getEmailFromToken(token));
+    }
 }

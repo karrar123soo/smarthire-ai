@@ -28,27 +28,29 @@ public class JwtTokenProvider {
     private long jwtExpirationMs;
 
     private SecretKey getSigningKey() {
-        byte[] keyBytes;
-        if (jwtSecret.contains("-") || jwtSecret.contains("_")) {
-            try {
-                keyBytes = Decoders.BASE64URL.decode(jwtSecret);
-            } catch (IllegalArgumentException e) {
-                keyBytes = jwtSecret.getBytes(StandardCharsets.UTF_8);
+        if (jwtSecret == null || jwtSecret.isBlank()) {
+            throw new IllegalStateException("JWT secret configuration is missing or empty");
+        }
+
+        String cleanSecret = jwtSecret.trim();
+        byte[] keyBytes = null;
+
+        try {
+            if (cleanSecret.contains("-") || cleanSecret.contains("_")) {
+                keyBytes = Decoders.BASE64URL.decode(cleanSecret);
+            } else {
+                keyBytes = Decoders.BASE64.decode(cleanSecret);
             }
-        } else {
+        } catch (Exception e) {
             try {
-                keyBytes = Decoders.BASE64.decode(jwtSecret);
-            } catch (IllegalArgumentException e) {
-                try {
-                    keyBytes = Decoders.BASE64URL.decode(jwtSecret);
-                } catch (IllegalArgumentException ex) {
-                    keyBytes = jwtSecret.getBytes(StandardCharsets.UTF_8);
-                }
+                keyBytes = Decoders.BASE64URL.decode(cleanSecret);
+            } catch (Exception ex) {
+                keyBytes = cleanSecret.getBytes(StandardCharsets.UTF_8);
             }
         }
 
-        byte[] rawBytes = jwtSecret.getBytes(StandardCharsets.UTF_8);
-        if (keyBytes.length < 32 && rawBytes.length >= 32) {
+        byte[] rawBytes = cleanSecret.getBytes(StandardCharsets.UTF_8);
+        if ((keyBytes == null || keyBytes.length < 32) && rawBytes.length >= 32) {
             keyBytes = rawBytes;
         }
 
