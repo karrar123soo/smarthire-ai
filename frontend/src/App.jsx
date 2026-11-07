@@ -26,6 +26,14 @@ function MainLayout() {
   // 'landing' | 'jobs' | 'hr-jobs' | 'my-applications' | 'hr-pipeline' | 'interviews' | 'analytics' | 'resume-parser'
   
   const [isBackendOnline, setIsBackendOnline] = useState(false);
+  const [jobsRefreshTrigger, setJobsRefreshTrigger] = useState(0);
+
+  const handleViewChange = (view) => {
+    if (view === 'jobs') {
+      setJobsRefreshTrigger((prev) => prev + 1);
+    }
+    setCurrentView(view);
+  };
   const [authModal, setAuthModal] = useState({ isOpen: false, mode: 'login', role: 'ROLE_CANDIDATE' });
   const [profileModalOpen, setProfileModalOpen] = useState(false);
   const [notificationsOpen, setNotificationsOpen] = useState(false);
@@ -85,7 +93,7 @@ function MainLayout() {
       <Navbar
         isBackendOnline={isBackendOnline}
         currentView={currentView}
-        onViewChange={setCurrentView}
+        onViewChange={handleViewChange}
         onOpenAuth={openAuth}
         onOpenProfile={() => setProfileModalOpen(true)}
         onOpenNotifications={() => setNotificationsOpen(true)}
@@ -98,7 +106,7 @@ function MainLayout() {
           <>
             <Hero
               onOpenAuth={openAuth}
-              onExploreJobs={() => setCurrentView('jobs')}
+              onExploreJobs={() => handleViewChange('jobs')}
               onOpenHRHub={() => {
                 if (isAuthenticated && role === 'ROLE_HR') {
                   setCurrentView('hr-jobs');
@@ -108,7 +116,7 @@ function MainLayout() {
               }}
             />
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <JobBoardView onApplyPrompt={handleApplyPrompt} />
+              <JobBoardView onApplyPrompt={handleApplyPrompt} isBackendOnline={isBackendOnline} refreshTrigger={jobsRefreshTrigger} />
             </div>
             <LiveStatusWidget onStatusChange={setIsBackendOnline} />
             <FeatureGrid />
@@ -118,7 +126,7 @@ function MainLayout() {
 
         {currentView === 'jobs' && (
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6">
-            <JobBoardView onApplyPrompt={handleApplyPrompt} />
+            <JobBoardView onApplyPrompt={handleApplyPrompt} isBackendOnline={isBackendOnline} refreshTrigger={jobsRefreshTrigger} />
           </div>
         )}
 

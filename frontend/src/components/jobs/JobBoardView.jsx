@@ -19,7 +19,7 @@ const INITIAL_FILTERS = {
   sortDir: 'desc',
 };
 
-export default function JobBoardView({ onApplyPrompt }) {
+export default function JobBoardView({ onApplyPrompt, isBackendOnline, refreshTrigger }) {
   const [filters, setFilters] = useState(INITIAL_FILTERS);
   const [jobs, setJobs] = useState([]);
   const [totalElements, setTotalElements] = useState(0);
@@ -30,7 +30,7 @@ export default function JobBoardView({ onApplyPrompt }) {
   // Selected Job for modal
   const [selectedJob, setSelectedJob] = useState(null);
 
-  const fetchJobs = async () => {
+  const fetchJobs = async (attempt = 1) => {
     setLoading(true);
     setError('');
     try {
@@ -42,7 +42,15 @@ export default function JobBoardView({ onApplyPrompt }) {
       }
     } catch (err) {
       console.error('Failed to fetch open jobs:', err);
-      setError('Unable to load job openings. Please check backend connection.');
+      if (attempt <= 3) {
+        const delaySec = attempt * 4;
+        setError(`Backend connecting or waking up on Render free tier. Retrying in ${delaySec}s (Attempt ${attempt}/3)...`);
+        setTimeout(() => {
+          fetchJobs(attempt + 1);
+        }, delaySec * 1000);
+      } else {
+        setError('Unable to load job openings. Please check backend connection.');
+      }
     } finally {
       setLoading(false);
     }
@@ -50,7 +58,13 @@ export default function JobBoardView({ onApplyPrompt }) {
 
   useEffect(() => {
     fetchJobs();
-  }, [filters]);
+  }, [filters, refreshTrigger]);
+
+  useEffect(() => {
+    if (isBackendOnline && (jobs.length === 0 || error)) {
+      fetchJobs(1);
+    }
+  }, [isBackendOnline]);
 
   const handleResetFilters = () => {
     setFilters(INITIAL_FILTERS);
@@ -97,7 +111,7 @@ export default function JobBoardView({ onApplyPrompt }) {
             <span>{error}</span>
             </div>
             <button
-              onClick={fetchJobs}
+              onClick={() => fetchJobs(1)}
               className="inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-lg bg-rose-500/20 hover:bg-rose-500/30 text-rose-200 border border-rose-500/30 text-xs font-semibold transition self-start sm:self-auto"
             >
               <RefreshCw className="w-3.5 h-3.5" />
